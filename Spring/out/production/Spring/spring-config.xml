@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="UserDao" class="com.lakeqiu.soring.Demo1.UserDaoImpl">
+        <property name="name" value="spring"></property>
+    </bean>
+
+    <bean id="demo1" class="demo1">
+        <property name="Name" value="Spring"></property>
+    </bean>
+
+    <!--构造方法属性注入-->
+    <bean id="CarConstruct" class="com.lakeqiu.soring.demo2.CarConstruct">
+        <constructor-arg name="name" value="奔驰"></constructor-arg>
+        <constructor-arg name="prive"  value="1000000"></constructor-arg>
+    </bean>
+
+    <!--&lt;!&ndash;Set方法属性注入&ndash;&gt;-->
+    <!--<bean id="CarSet" class="com.lakeqiu.soring.demo2.CarSet">-->
+        <!--<property name="name" value="宝马"></property>-->
+        <!--<property name="prive" value="2000000"></property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;改为p名称空间的方式&ndash;&gt;-->
+    <!--<bean id="CarSet" class="com.lakeqiu.soring.demo2.CarSet" p:name="法拉利" p:prive="3000000"></bean>-->
+
+    <!--&lt;!&ndash;SpEL的属性注入&ndash;&gt;-->
+    <!--<bean id="CarSet" class="com.lakeqiu.soring.demo2.CarSet">-->
+        <!--<property name="name" value="#{'奥迪'}"></property>-->
+        <!--<property name="prive" value="#{'1000000'}"></property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;Set方法注入对象类型的属性&ndash;&gt;-->
+    <!--<bean id="UserSet" class="com.lakeqiu.soring.demo2.UserSet">-->
+        <!--&lt;!&ndash;value：设置普通类型的值 ref：设置其他类的id或name&ndash;&gt;-->
+        <!--<property name="name" value="lake"></property>-->
+        <!--<property name="carset" ref="CarSet"></property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;改为p名称空间的方式&ndash;&gt;-->
+    <!--<bean id="UserSet" class="com.lakeqiu.soring.demo2.UserSet" p:name="lakeqiu" p:carset-ref="CarSet"></bean>-->
+
+    <!--SpEL的属性注入-->
+    <bean id="CarSet2" class="com.lakeqiu.soring.demo2.CarSet2"></bean>
+
+    <bean id="CarSet" class="com.lakeqiu.soring.demo2.CarSet">
+        <property name="name" value="#{CarSet2.name}"></property>
+        <property name="prive" value="#{CarSet2.CarPrive()}"></property>
+    </bean>
+
+    <bean id="UserSet" class="com.lakeqiu.soring.demo2.UserSet">
+        <property name="name" value="#{'lakeqiu'}"></property>
+        <property name="carset" value="#{CarSet}"></property>
+    </bean>
+
+    <!--集合类型的注入-->
+    <bean id="CollectionBean" class="com.lakeqiu.soring.demo2.CollectionBean">
+        <!--数组类型-->
+        <property name="strings">
+            <list>
+                <value>张三</value>
+                <value>李四</value>
+            </list>
+        </property>
+
+        <!--list类型-->
+        <property name="list">
+            <list>
+                <value>aa</value>
+                <value>bb</value>
+            </list>
+        </property>
+
+        <!--set类型-->
+        <property name="set">
+            <set>
+                <value>cc</value>
+                <value>dd</value>
+            </set>
+        </property>
+
+        <!--map类型-->
+        <property name="map">
+            <map>
+                <entry key="eee" value="111"></entry>
+                <entry key="fff" value="222"></entry>
+            </map>
+        </property>
+    </bean>
+</beans>
